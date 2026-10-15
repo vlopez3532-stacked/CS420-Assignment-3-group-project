@@ -15,8 +15,7 @@ Player::Player(const string& name)
        Call the base class constructor to initialize the member variable.
        END FUNCTION
     */
-    (void)name;
-    // TODO: assign the requested player name.
+    setName(name);
 }
 
 // Virtual destructor for Player.
@@ -32,7 +31,10 @@ bool Player::isHitting() const
        Using name of the player prompt to check if he wants to hit and return appropriate values
        END FUNCTION
     */
-    return false; // TODO: implement the player prompt.
+    char answer;
+    cout << getName() << ", do you want to hit? (y/n): ";
+    cin >> answer;
+    return answer == 'y' || answer == 'Y';
 }
 
 // Announces that the player won.
@@ -42,7 +44,8 @@ bool Player::win() const
        Print the name and display that the player has won
        END FUNCTION
     */
-    return false; // TODO: print the message and return the required value.
+    cout << getName() << " wins!\n";
+    return true;
 }
 
 // Announces that the player lost.
@@ -52,7 +55,8 @@ bool Player::lose() const
        Print the name and display that the player has lost
        END FUNCTION
     */
-    return false; // TODO: print the message and return the required value.
+    cout << getName() << " loses.\n";
+    return true;
 }
 
 // Announces a push.
@@ -62,5 +66,6 @@ bool Player::push() const
        Print the name and display that the player has pushed
        END FUNCTION
     */
-    return false; // TODO: print the message and return the required value.
+    cout << getName() << " pushes with the house.\n";
+    return true;
 }

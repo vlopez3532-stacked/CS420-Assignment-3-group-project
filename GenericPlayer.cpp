@@ -35,7 +35,7 @@ bool GenericPlayer::isBusted() const
            END IF
        END FUNCTION
     */
-    return false; // TODO: implement the bust check.
+    return getTotal() > 21;
 }
 
 // Prints a bust message for this participant.
@@ -45,23 +45,22 @@ bool GenericPlayer::bust() const
             Print the name and display that the player has busted
        END FUNCTION
     */
-    // TODO: print the bust message.
-    return false; // TODO: follow the required return convention after printing.
+    cout << name << " busted.\n";
+    return true;
 }
 
 // Returns this participant's name.
 string GenericPlayer::getName() const
 {
     /* NOTE: WRITE APPROPRIATE CODE FOR SETTER AND GETTER FUNCTIONS FOR THIS CLASS */
-    return string(); // TODO: return the stored name.
+    return name;
 }
 
 // Updates this participant's name.
 void GenericPlayer::setName(string newName)
 {
     /* NOTE: WRITE APPROPRIATE CODE FOR SETTER AND GETTER FUNCTIONS FOR THIS CLASS */
-    (void)newName;
-    // TODO: store the new participant name.
+    name = newName;
 }
 
 // Displays the participant's name, cards, and total when available.
@@ -95,7 +94,24 @@ ostream& operator<<(ostream& os, const GenericPlayer& aGenericPlayer)
 
        END FUNCTION
     */
-    (void)aGenericPlayer;
-    // TODO: implement participant formatting.
+    os << aGenericPlayer.name << "\t";
+
+    if (aGenericPlayer.cardVector.empty())
+    {
+        os << "<empty>";
+        return os;
+    }
+
+    for (vector<Card*>::const_iterator iter = aGenericPlayer.cardVector.begin();
+         iter != aGenericPlayer.cardVector.end(); ++iter)
+    {
+        os << **iter << "\t";
+    }
+
+    if (aGenericPlayer.getTotal() != 0)
+    {
+        os << "(" << aGenericPlayer.getTotal() << ")";
+    }
+
     return os;
 }
