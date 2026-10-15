@@ -8,19 +8,13 @@ using namespace std;
 // Reserves space for a typical Blackjack hand.
 Hand::Hand()
 {
-    /* Constructor
-            Call the reserve() on CardVector and pass a value of 7
-       END FUNCTION
-    */
+    cardVector.reserve(7);
 }
 
 // Releases every card owned by this hand.
 Hand::~Hand()
 {
-    /* Destructor
-            Call the function clearHand()
-       END FUNCTION
-    */
+    clearHand();
 }
 
 // Adds a card pointer to this hand.
@@ -31,8 +25,7 @@ void Hand::add(Card* cardPtr)
            Call push_back() on the cardVector and pass the cardPtr as its argument
        END FUNCTION
     */
-    (void)cardPtr;
-    // TODO: append the card pointer.
+    cardVector.push_back(cardPtr);
 }
 
 // Deletes and removes every card in the hand.
@@ -46,7 +39,13 @@ void Hand::clearHand()
            Call function clear() on cardVector
        END FUNCTION
     */
-    // TODO: implement card cleanup.
+    for (vector<Card*>::iterator iter = cardVector.begin(); iter != cardVector.end(); ++iter)
+    {
+        delete *iter;
+        *iter = nullptr;
+    }
+
+    cardVector.clear();
 }
 
 // Calculates the best Blackjack total for this hand.
@@ -78,5 +77,28 @@ int Hand::getTotal() const
            END LOOP
        END FUNCTION
     */
-    return 0; // TODO: implement hand scoring.
+    if (cardVector.empty() || cardVector[0]->getValue() == 0)
+    {
+        return 0;
+    }
+
+    int total = 0;
+    int aceCount = 0;
+
+    for (vector<Card*>::const_iterator iter = cardVector.begin(); iter != cardVector.end(); ++iter)
+    {
+        total += (*iter)->getValue();
+        if ((*iter)->getValue() == 1)
+        {
+            ++aceCount;
+        }
+    }
+
+    while (aceCount > 0 && total <= 11)
+    {
+        total += 10;
+        --aceCount;
+    }
+
+    return total;
 }
