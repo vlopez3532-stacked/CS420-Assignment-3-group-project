@@ -25,7 +25,17 @@ int Card::getValue() const
        NOTE: The king, queen, jack should also return a value 10
        END FUNCTION
     */
-    return 0; // TODO: replace with the scoring logic above.
+    if (!isFaceUp)
+    {
+        return 0;
+    }
+
+    if (rank >= TEN)
+    {
+        return 10;
+    }
+
+    return static_cast<int>(rank);
 }
 
 // Changes the card from face up to face down, or vice versa.
@@ -35,7 +45,7 @@ void Card::flip()
        Flips a card. Face up becomes face down, and face down becomes face up
        END FUNCTION
     */
-    // TODO: implement the visibility toggle.
+    isFaceUp = !isFaceUp;
 }
 
 // Writes a card code such as JH, or XX when the card is face down.
@@ -58,7 +68,18 @@ ostream& operator<<(ostream& os, const Card& aCard)
        Return output object [See overloaded << class example]
        END FUNCTION
     */
-    (void)aCard;
-    // TODO: implement card formatting.
+    const string RANKS[] = {"0", "A", "2", "3", "4", "5", "6",
+                            "7", "8", "9", "10", "J", "Q", "K"};
+    const string SUITS[] = {"C", "D", "H", "S"};
+
+    if (aCard.isFaceUp)
+    {
+        os << RANKS[aCard.rank] << SUITS[aCard.suit];
+    }
+    else
+    {
+        os << "XX";
+    }
+
     return os;
 }

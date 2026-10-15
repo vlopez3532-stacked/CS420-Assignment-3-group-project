@@ -15,3 +15,12 @@ add_executable(blackjack
     Deck.cpp
     Game.cpp
 )
+
+# Small executable for checking the completed foundation classes independently.
+add_executable(foundation_tests
+    FoundationDemo.cpp
+    Card.cpp
+    Hand.cpp
+    GenericPlayer.cpp
+    Player.cpp
+)
