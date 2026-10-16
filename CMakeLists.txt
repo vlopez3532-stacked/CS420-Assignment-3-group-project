@@ -24,3 +24,12 @@ add_executable(foundation_tests
     GenericPlayer.cpp
     Player.cpp
 )
+
+# Small executable for checking the House class independently.
+add_executable(House_tests
+        HouseDemo.cpp
+        House.cpp
+        GenericPlayer.cpp
+        Hand.cpp
+        Card.cpp
+)
