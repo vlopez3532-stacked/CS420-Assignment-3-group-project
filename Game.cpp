@@ -16,7 +16,8 @@ Game::Game(const string& name)
            Call function shuffle() using the deck object
        END FUNCTION
     */
-    // TODO: prepare the initial deck.
+    deck.populate();
+    deck.shuffle();
 }
 
 // Destructor for Game; member objects clean themselves up.
@@ -62,5 +63,34 @@ void Game::play()
 
        END FUNCTION
     */
-    // TODO: implement one complete round.
+
+    for (int cardNumber = 0; cardNumber < 2; ++cardNumber)
+    {
+        deck.deal(player);
+        deck.deal(house);
+    }
+
+    house.flipFirstCard();
+    cout << player << '\n';
+    cout << house << '\n';
+
+    deck.additionalCards(player);
+    house.flipFirstCard();
+    cout << house << '\n';
+    deck.additionalCards(house);
+
+    if (house.isBusted()) {
+        if (!player.isBusted()) { player.win(); }
+    } else if (!player.isBusted()) {
+        if (player.getTotal() > house.getTotal()) {
+            player.win();
+        } else if (player.getTotal() < house.getTotal()) {
+            player.lose();
+        } else {
+            player.push();
+        }
+    }
+
+    player.clearHand();
+    house.clearHand();
 }
