@@ -14,8 +14,7 @@ House::House(const string& name)
        Call the base class constructor to initialize the member variable.
        END FUNCTION
     */
-    (void)name;
-    // TODO: assign the dealer name.
+    setName(name);
 }
 
 // Virtual destructor for House.
@@ -34,7 +33,7 @@ bool House::isHitting() const
        ENDIF
        END FUNCTION
     */
-    return false; // TODO: implement the dealer hit rule.
+    return getTotal() <= 16;
 }
 
 // Flips the dealer's first card when one is available.
@@ -49,5 +48,12 @@ void House::flipFirstCard() const
        END IF
        END FUNCTION
     */
-    // TODO: implement first-card handling.
+    if (cardVector.empty())
+    {
+        cout << getName() << " has no card to flip." << endl;
+    }
+    else
+    {
+        cardVector.front()->flip();
+    }
 }
